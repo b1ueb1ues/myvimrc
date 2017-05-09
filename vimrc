@@ -1,10 +1,13 @@
 se nocp "nocompatible
+
 colorscheme Tomorrow-Night
 "se viminfo=:1000,@1000
 "se go=
-"se guifont=Monospace\ 12
-se guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
+"se guifont=Monospace\ 13
+"se guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
+se guifont=DejaVu\ Sans\ Mono\ Book\ 13
 se fileencodings=utf-8,ucs-bom,gbk,gb2312
+se encoding=utf-8
 se laststatus=2
 "autocmd bufwritepost .vimrc source $MYVIMRC
 nmap <leader>s :so $MYVIMRC<return>
@@ -32,31 +35,41 @@ se magic
 "nobell
 	se noerrorbells
 	se novisualbell
+	se belloff=all
 "}}}
-
 "keymap {{{
 vmap <c-c> "+y
-nmap <c-v> <esc>"+<s-p>
-imap <c-v> <esc>"+<s-p>
+nmap <c-v> "+<s-p>
+imap <c-v> <esc>"+p
 nmap k gk
 nmap j gj
 nmap <space> :
-imap kj <ESC>
 
 nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-h> <c-w>h
 nmap <c-l> <c-w>l
-nmap <a-k> <c-w>j
-nmap <a-i> <c-w>k
-nmap <a-j> <c-w>h
-nmap <a-l> <c-w>l
-imap <a-u> <esc>gUaw
+imap <a-u> <esc>gUawea
+nmap U gUaw
+
+nmap qq <esc>
+nmap q: <esc>:
+nmap Q <esc>
+nmap g: :<c-f>
+
+nmap <a-j> 3j
+nmap <a-k> 3k
+vmap <a-j> 3j
+vmap <a-k> 3k
+
+nmap <a-d> <c-d>
+nmap <a-u> <c-u>
 
 
 nmap <f5> :nohl<return>
-nmap <leader>p :w !python<return>
-
+nmap <leader>p :w !python<cr>
+nmap <leader>w :w<cr>
+nmap <leader>q :wq<cr>
 "}}}
 
 "hl tab i so wild{{{
@@ -109,11 +122,14 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'bling/vim-airline'
+Plugin 'fidian/hexmode'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'Shougo/neocomplete.vim'
 "Plugin 'klen/python-mode'
 "Plugin 'scrooloose/syntastic'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'sjl/gundo.vim'
+Plugin 'lilydjwg/fcitx.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -155,7 +171,8 @@ filetype plugin indent on    " required
 
 "{{{ airline
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#trailing_format = 'w_t[%s]'
+let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#whitespace#trailing_format = 'w_t[%s]'
 let g:airline#extensions#tagbar#enabled = 1
 
 let g:airline#extensions#tabline#enabled = 1
@@ -166,10 +183,10 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 let g:airline_section_c=''
 let g:airline#extensions#tagbar#flags = 's'
-"let g:airline_left_sep=' '
-"let g:airline_left_alt_sep='|'
-"let g:airline_right_sep=' '
-"let g:airline_right_alt_sep='|'
+let g:airline_left_sep=' '
+let g:airline_left_alt_sep='|'
+let g:airline_right_sep=' '
+let g:airline_right_alt_sep='|'
 "}}}
 "{{{neocomplete
 "let g:neocomplete#enable_at_startup = 1
@@ -180,8 +197,8 @@ let g:airline#extensions#tagbar#flags = 's'
 let g:tagbar_left=1
 let g:tagbar_width=20
 "}}}
-"
 "{{{ YCM
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_disable_for_files_larger_than_kb = 1000
 
 "}}}
